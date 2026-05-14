@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Inteligencia de Clientes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: #efede8;
+        color: #1a1a1a;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .header {
+        background: #0d1525;
+        padding: 52px 64px 44px;
+        color: white;
+      }
+      .header-eyebrow {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 11.5px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #90aec8;
+        margin-bottom: 14px;
+        font-weight: 600;
+      }
+      .header-title {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 34px;
+        font-weight: 700;
+        color: #f0eeea;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+      .header-desc {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 15px;
+        color: #b8ccdc;
+        max-width: 560px;
+        line-height: 1.65;
+      }
+      .header-meta {
+        display: flex;
+        gap: 40px;
+        margin-top: 36px;
+        padding-top: 28px;
+        border-top: 1px solid #1e2e45;
+      }
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .meta-label {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #7a9ab8;
+        font-weight: 700;
+      }
+      .meta-value {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 13.5px;
+        color: #c8d8e8;
+        font-weight: 500;
+      }
+      .content {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 52px 64px 64px;
+      }
+      .section {
+        margin-bottom: 60px;
+      }
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid;
+      }
+      .section-header.teal {
+        border-color: #0d9e75;
+      }
+      .section-header.amber {
+        border-color: #c97f00;
+      }
+      .section-pill {
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding: 5px 12px;
+        border-radius: 100px;
+      }
+      .section-pill.teal {
+        background: #0d9e75;
+        color: white;
+      }
+      .section-pill.amber {
+        background: #c97f00;
+        color: white;
+      }
+      .section-title {
+        font-family: "Syne", sans-serif;
+        font-size: 19px;
+        font-weight: 700;
+        color: #0d1525;
+        letter-spacing: -0.3px;
+      }
+      .entry-card {
+        background: white;
+        border-radius: 14px;
+        border: 1px solid #ddd9d0;
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+      .entry-card.new {
+        border-color: #a8dfc9;
+      }
+      .entry-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 22px;
+        border-bottom: 1px solid #f0ede6;
+        gap: 13px;
+      }
+      .entry-card.new .entry-header {
+        background: #f3fbf7;
+        border-bottom-color: #c8eee0;
+      }
+      .entry-name {
+        font-family: "Syne", sans-serif;
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #0d1525;
+        letter-spacing: -0.2px;
+      }
+      .tags {
+        display: flex;
+        gap: 7px;
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .tag {
+        font-size: 10.5px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 100px;
+        white-space: nowrap;
+        letter-spacing: 0.2px;
+      }
+      .tag.teal {
+        background: #e1f5ee;
+        color: #0a6b4d;
+      }
+      .tag.amber {
+        background: #fff0d6;
+        color: #7a4d00;
+      }
+      .tag.gray {
+        background: #f2f0eb;
+        color: #777065;
+      }
+      .tag.new-tag {
+        background: #e1f5ee;
+        color: #0a6b4d;
+        border: 1px solid #a8dfc9;
+      }
+      .fields-row {
+        display: grid;
+        gap: 0;
+      }
+      .fields-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .fields-2 {
+        grid-template-columns: 1fr 1fr;
+        border-top: 1px solid #f0ede6;
+      }
+      .field {
+        padding: 16px 22px;
+        border-right: 1px solid #f0ede6;
+      }
+      .field:last-child {
+        border-right: none;
+      }
+      .field-label {
+        font-size: 9.5px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #aaa49a;
+        margin-bottom: 7px;
+        font-weight: 700;
+      }
+      .field-value {
+        font-size: 13px;
+        color: #2d2d2d;
+        line-height: 1.65;
+      }
+      .field-value ul {
+        padding-left: 16px;
+        margin-top: 4px;
+      }
+      .field-value li {
+        margin-bottom: 3px;
+      }
+      .divider {
+        height: 1px;
+        background: #f0ede6;
+      }
+      .footer {
+        background: #0d1525;
+        padding: 22px 64px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-left {
+        font-size: 12px;
+        color: #4a5e78;
+      }
+      .footer-right {
+        font-size: 11px;
+        color: #3a4e68;
+        font-style: italic;
+      }
+      .ciclo-wrap {
+        background: white;
+        border-radius: 14px;
+        border: 1px solid #ddd9d0;
+        padding: 36px 44px;
+        display: flex;
+        align-items: center;
+        gap: 52px;
+      }
+      .ciclo-svg-wrap {
+        flex-shrink: 0;
+        width: 440px;
+      }
+      .ciclo-svg-wrap svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .ciclo-legend {
+        flex: 1;
+      }
+      .ciclo-legend-eyebrow {
+        font-size: 9.5px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #aaa49a;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+      .ciclo-legend-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px 36px;
+      }
+      .ciclo-legend-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .ciclo-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+      .ciclo-legend-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #0d1525;
+        margin-bottom: 2px;
+        line-height: 1.3;
+      }
+      .ciclo-legend-desc {
+        font-size: 11.5px;
+        color: #777065;
+        line-height: 1.45;
+      }
+      @media print {
+        body {
+          background: white;
+        }
+        .content {
+          padding: 32px;
+        }
+        .header {
+          padding: 32px;
+        }
+        .footer {
+          padding: 20px 32px;
+        }
+        .entry-card {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <p class="header-eyebrow">Hält · Estrategias</p>
+      <h1 class="header-title">Sistema de Inteligencia de Clientes</h1>
+      <p class="header-desc">
+        Estructura de escucha, datos y acción para la toma de decisiones y
+        priorización basada en métricas. Diseñado para reunión estratégica
+        mensual.
+      </p>
+      <div class="header-meta">
+        <div class="meta-item">
+          <span class="meta-label">Secciones</span>
+          <span class="meta-value">Canales de Escucha · Fuentes de Datos</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Frecuencia de Reunión</span>
+          <span class="meta-value">Mensual</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Asistentes</span>
+          <span class="meta-value">Lalo, Mateo, Orlando, Israel</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Canales activos</span>
+          <span class="meta-value">3 canales · 7 fuentes</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Versión</span>
+          <span class="meta-value">Mayo 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- CICLO -->
+      <div class="section">
+        <div class="section-header teal">
+          <span class="section-pill teal">Ciclo</span>
+          <h2 class="section-title">Ciclo Operativo</h2>
+        </div>
+        <div class="ciclo-wrap">
+          <div class="ciclo-svg-wrap">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+              <!-- Segmento 1 · Recabar: -90° a -30° -->
+              <path
+                d="M 250 70 A 180 180 0 0 1 405.88 160 L 327.94 205 A 90 90 0 0 0 250 160 Z"
+                fill="#5cc4a0"
+                stroke="#efede8"
+                stroke-width="6"
+              />
+              <!-- Segmento 2 · Procesar: -30° a 30° -->
+              <path
+                d="M 405.88 160 A 180 180 0 0 1 405.88 340 L 327.94 295 A 90 90 0 0 0 327.94 205 Z"
+                fill="#8ed4b8"
+                stroke="#efede8"
+                stroke-width="6"
+              />
+              <!-- Segmento 3 · Estrategia: 30° a 90° -->
+              <path
+                d="M 405.88 340 A 180 180 0 0 1 250 430 L 250 340 A 90 90 0 0 0 327.94 295 Z"
+                fill="#a8b8d8"
+                stroke="#efede8"
+                stroke-width="6"
+              />
+              <!-- Segmento 4 · Asignar: 90° a 150° -->
+              <path
+                d="M 250 430 A 180 180 0 0 1 94.12 340 L 172.06 295 A 90 90 0 0 0 250 340 Z"
+                fill="#f0c878"
+                stroke="#efede8"
+                stroke-width="6"
+              />
+              <!-- Segmento 5 · Comunicar: 150° a 210° -->
+              <path
+                d="M 94.12 340 A 180 180 0 0 1 94.12 160 L 172.06 205 A 90 90 0 0 0 172.06 295 Z"
+                fill="#f0a898"
+                stroke="#efede8"
+                stroke-width="6"
+              />
+              <!-- Segmento 6 · Medir: 210° a 270° -->
+              <path
+                d="M 94.12 160 A 180 180 0 0 1 250 70 L 250 160 A 90 90 0 0 0 172.06 205 Z"
+                fill="#c8d8a8"
+                stroke="#efede8"
+                stroke-width="6"
+              />
+              <!-- Centro -->
+              <circle cx="250" cy="250" r="82" fill="#0d1525" />
+              <text
+                x="250"
+                y="242"
+                text-anchor="middle"
+                font-size="42"
+                fill="#4a6080"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                ↻
+              </text>
+              <text
+                x="250"
+                y="272"
+                text-anchor="middle"
+                font-size="15"
+                fill="#4a6080"
+                font-family="Plus Jakarta Sans, sans-serif"
+                letter-spacing="0.8"
+              >
+                sentido horario
+              </text>
+              <!-- Etiquetas · Segmento 1 (centroide -60°) -->
+              <text
+                x="317"
+                y="115"
+                text-anchor="middle"
+                font-size="28"
+                font-weight="700"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                1
+              </text>
+              <text
+                x="317"
+                y="142"
+                text-anchor="middle"
+                font-size="16"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                Recabar
+              </text>
+              <!-- Etiquetas · Segmento 2 (centroide 0°) -->
+              <text
+                x="384"
+                y="238"
+                text-anchor="middle"
+                font-size="28"
+                font-weight="700"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                2
+              </text>
+              <text
+                x="384"
+                y="265"
+                text-anchor="middle"
+                font-size="16"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                Procesar
+              </text>
+              <!-- Etiquetas · Segmento 3 (centroide 60°) -->
+              <text
+                x="317"
+                y="350"
+                text-anchor="middle"
+                font-size="28"
+                font-weight="700"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                3
+              </text>
+              <text
+                x="317"
+                y="377"
+                text-anchor="middle"
+                font-size="16"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                Estrategia
+              </text>
+              <!-- Etiquetas · Segmento 4 (centroide 120°) -->
+              <text
+                x="183"
+                y="350"
+                text-anchor="middle"
+                font-size="28"
+                font-weight="700"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                4
+              </text>
+              <text
+                x="183"
+                y="377"
+                text-anchor="middle"
+                font-size="16"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                Asignar
+              </text>
+              <!-- Etiquetas · Segmento 5 (centroide 180°) -->
+              <text
+                x="116"
+                y="238"
+                text-anchor="middle"
+                font-size="28"
+                font-weight="700"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                5
+              </text>
+              <text
+                x="116"
+                y="265"
+                text-anchor="middle"
+                font-size="16"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                Comunicar
+              </text>
+              <!-- Etiquetas · Segmento 6 (centroide 240°) -->
+              <text
+                x="183"
+                y="115"
+                text-anchor="middle"
+                font-size="28"
+                font-weight="700"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                6
+              </text>
+              <text
+                x="183"
+                y="142"
+                text-anchor="middle"
+                font-size="16"
+                fill="#0d1525"
+                font-family="Plus Jakarta Sans, sans-serif"
+              >
+                Medir
+              </text>
+            </svg>
+          </div>
+          <div class="ciclo-legend">
+            <p class="ciclo-legend-eyebrow">Etapas del Ciclo</p>
+            <div class="ciclo-legend-grid">
+              <div class="ciclo-legend-item">
+                <span class="ciclo-dot" style="background: #5cc4a0"></span>
+                <div>
+                  <p class="ciclo-legend-name">1. Recabar información</p>
+                  <p class="ciclo-legend-desc">
+                    Canales de escucha y fuentes de datos
+                  </p>
+                </div>
+              </div>
+              <div class="ciclo-legend-item">
+                <span class="ciclo-dot" style="background: #f0c878"></span>
+                <div>
+                  <p class="ciclo-legend-name">4. Definir y asignar tareas</p>
+                  <p class="ciclo-legend-desc">
+                    Responsables, fechas y recursos
+                  </p>
+                </div>
+              </div>
+              <div class="ciclo-legend-item">
+                <span class="ciclo-dot" style="background: #8ed4b8"></span>
+                <div>
+                  <p class="ciclo-legend-name">2. Procesar la información</p>
+                  <p class="ciclo-legend-desc">Generar reportes y análisis</p>
+                </div>
+              </div>
+              <div class="ciclo-legend-item">
+                <span class="ciclo-dot" style="background: #f0a898"></span>
+                <div>
+                  <p class="ciclo-legend-name">5. Comunicar la acción</p>
+                  <p class="ciclo-legend-desc">Tiempos, mensajes y canales</p>
+                </div>
+              </div>
+              <div class="ciclo-legend-item">
+                <span class="ciclo-dot" style="background: #a8b8d8"></span>
+                <div>
+                  <p class="ciclo-legend-name">3. Sesión estratégica</p>
+                  <p class="ciclo-legend-desc">
+                    Definir y priorizar acciones o soluciones
+                  </p>
+                </div>
+              </div>
+              <div class="ciclo-legend-item">
+                <span class="ciclo-dot" style="background: #c8d8a8"></span>
+                <div>
+                  <p class="ciclo-legend-name">6. Medir y evaluar</p>
+                  <p class="ciclo-legend-desc">
+                    Feedback y evaluación de resultados
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 1 -->
+      <div class="section">
+        <div class="section-header teal">
+          <span class="section-pill teal">Sección 1</span>
+          <h2 class="section-title">Canales de Escucha</h2>
+        </div>
+
+        <!-- Entrevista Onboarding -->
+        <div class="entry-card">
+          <div class="entry-header">
+            <span class="entry-name">Entrevista de Onboarding</span>
+            <div class="tags">
+              <span class="tag teal">Entrevista 1 a 1</span>
+              <span class="tag gray">Mensual · Pendiente</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Generar una experiencia de integración que incremente la
+                retención y satisfacción del cliente desde el primer contacto.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Por qué entrena con nosotros. Nivel de acompañamiento que
+                percibe el atleta. Expectativas vs. realidad. Detección temprana
+                de insatisfacciones.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Categorizar motivos de ingreso (salud, estética, rendimiento,
+                comunidad) y categoría de riesgos. Personalizar el seguimiento
+                en los primeros 30–60 días. Construir el perfil del cliente
+                ideal y ajustar la comunicación interna.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evaluación de clases -->
+        <div class="entry-card new">
+          <div class="entry-header">
+            <span class="entry-name">Evaluación de Clases</span>
+            <div class="tags">
+              <span class="tag new-tag">Nuevo ✦</span>
+              <span class="tag teal">Micro encuesta post-clase · APP</span>
+              <span class="tag gray">Mensual · Por implementar</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Conocer la percepción y experiencia de los atletas en las
+                diferentes clases que toman.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Calificación general (1–5 o NPS de sesión). Percepción del coach
+                (claridad, atención, energía). Nivel de dificultad percibido.
+                Campo abierto breve. Máx. 3–4 preguntas rotativas para evitar
+                fatiga.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Generar ranking semanal/mensual por coach y tipo de clase.
+                Identificar patrones por horario, programa o coach. Alimentar
+                decisiones de capacitación y ajustes para mejorar la experiencia
+                del atleta en la clase.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canal de sugerencias -->
+        <div class="entry-card new">
+          <div class="entry-header">
+            <span class="entry-name">Canal de Sugerencias Abiertas</span>
+            <div class="tags">
+              <span class="tag new-tag">Nuevo ✦</span>
+              <span class="tag teal">Buzón abierto · APP</span>
+              <span class="tag gray">Mensual · Por implementar</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Obtener feedback abierto y constante de la comunidad, sin estar
+                atado a una clase o momento específico del ciclo del atleta.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Temas recurrentes propuestos por la comunidad (instalaciones,
+                programación, precios, coaches, atención). Ideas de nuevos
+                servicios o clases. Quejas que no llegan por otros canales.
+                Nivel de participación e involucramiento de la comunidad con la
+                app.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Categorizar por tema y frecuencia mensual. Los más recurrentes
+                se llevan como punto de agenda a la reunión estratégica. Valorar
+                si requiere atención y priorizar acciones. Comunicar los cambios
+                más relevantes para reforzar la confianza de la comunidad.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 2 -->
+      <div class="section">
+        <div class="section-header amber">
+          <span class="section-pill amber">Sección 2</span>
+          <h2 class="section-title">Fuentes de Datos</h2>
+        </div>
+
+        <!-- Dashboard clase muestra -->
+        <div class="entry-card">
+          <div class="entry-header">
+            <span class="entry-name">Dashboard de Clase Muestra</span>
+            <div class="tags">
+              <span class="tag amber">Funnel de ventas</span>
+              <span class="tag gray">Diario · Semanal · Mensual</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Conocer la tasa de conversión en cada etapa del funnel de
+                ventas.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué responde?</p>
+              <p class="field-value">
+                ¿Cuántas personas se registran a clase muestra? ¿De qué canal
+                provienen (directo o redes)? ¿Cuántas asisten? ¿Cuántas se
+                inscriben?
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Tasa de conversión por etapa (registro → asistencia →
+                inscripción). Canal con mejor conversión. Tasa de no-show: señal
+                clave de si el problema está en la captación o en la experiencia
+                de la clase muestra.
+              </p>
+            </div>
+          </div>
+          <div class="fields-row fields-2">
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Mejorar el proceso de confirmación para reducir no-shows
+                (recordatorios automatizados vía WhatsApp). Revisar la
+                experiencia de clase muestra si la conversión
+                asistencia→inscripción es baja. Concentrar inversión en el canal
+                con mayor efectividad.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Reporte</p>
+              <p class="field-value">Diario / Semanal / Mensual</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leads no inscritos -->
+        <div class="entry-card">
+          <div class="entry-header">
+            <span class="entry-name"
+              >Leads que Asistieron a Clase Muestra y No se Inscribieron</span
+            >
+            <div class="tags">
+              <span class="tag amber">Seguimiento comercial</span>
+              <span class="tag gray">Mensual · Pendiente</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Saber si se van a inscribir y entender las razones detrás de su
+                indecisión para actuar sobre ellas.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué responde?</p>
+              <p class="field-value">
+                ¿Cómo fue su experiencia? ¿Qué opinan del precio? ¿Tienen dudas
+                sobre los servicios o el esquema de precios?
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Objeciones categorizadas: precio, ubicación, horarios, tipo de
+                entrenamiento, inseguridad personal, ya encontró otra opción.
+                Nivel de interés residual (¿decidiendo o ya descartó?).
+              </p>
+            </div>
+          </div>
+          <div class="fields-row fields-2">
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Construir un playbook de manejo de objeciones para el equipo de
+                contacto y seguimiento. Si el precio es la objeción dominante,
+                evaluar si es percepción de valor o realmente está fuera del
+                mercado. Si la atención o experiencia es la objeción,
+                desarrollar estrategias para mejorarlas. Desarrollar secuencia
+                de mensajes para los que se quedan en etapa “Decidiendo” para
+                “calentarlo” gradualmente y llevarlo hacia la conversión, sin
+                presionar directamente.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Reporte</p>
+              <p class="field-value">Mensual (pendiente)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atletas en riesgo -->
+        <div class="entry-card">
+          <div class="entry-header">
+            <span class="entry-name">Atletas en Riesgo</span>
+            <div class="tags">
+              <span class="tag amber">Retención proactiva</span>
+              <span class="tag gray">Mensual · Pendiente</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Anticipar y evitar el abandono antes de que ocurra. Aumentar la
+                retención de forma proactiva.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué responde?</p>
+              <p class="field-value">
+                ¿Por qué no han asistido recientemente? ¿Hay una causa
+                identificable antes de que lleguen a cancelar?
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Motivo de inasistencia categorizado: lesión, viaje,
+                desmotivación, cambio de horario laboral, problema económico,
+                insatisfacción. Frecuencia histórica vs. actual. Antigüedad del
+                atleta.
+              </p>
+            </div>
+          </div>
+          <div class="fields-row fields-2">
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Diseñar intervenciones diferenciadas por motivo: acompañamiento
+                al lesionado, reto o cambio de programa al desmotivado, pausa
+                flexible al que tiene problema económico. El contacto debe
+                percibirse como genuino interés, no como cobranza.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Reporte</p>
+              <p class="field-value">Mensual (pendiente)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atletas inactivos -->
+        <div class="entry-card">
+          <div class="entry-header">
+            <span class="entry-name">Atletas Inactivos</span>
+            <div class="tags">
+              <span class="tag amber">Recuperación de clientes</span>
+              <span class="tag gray">Mensual · Pendiente</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Identificar causas raíz del abandono y recuperar clientes
+                perdidos.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué responde?</p>
+              <p class="field-value">
+                ¿Por qué dejaron de asistir? ¿Están dispuestos a regresar? ¿Bajo
+                qué condiciones volverían?
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Motivo de baja categorizado (ya consumado). Tiempo que llevan
+                inactivos. Disposición a regresar (sí con condiciones / no
+                definitivo / tal vez). Qué los haría volver.
+              </p>
+            </div>
+          </div>
+          <div class="fields-row fields-2">
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Crear campañas de reactivación segmentadas por motivo de baja.
+                Alimentar el análisis de churn con causas raíz reales, no
+                supuestas.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Reporte</p>
+              <p class="field-value">Mensual (pendiente)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reporte CHURN -->
+        <div class="entry-card new">
+          <div class="entry-header">
+            <span class="entry-name"
+              >Reporte CHURN — Tasa de Cancelación o Abandono</span
+            >
+            <div class="tags">
+              <span class="tag new-tag">Nuevo ✦</span>
+              <span class="tag amber">Salud del negocio</span>
+              <span class="tag gray">Mensual · Pendiente</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Medir la salud del negocio e identificar causas raíz del
+                abandono de clientes.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué responde?</p>
+              <p class="field-value">
+                ¿Cuál es la tasa mensual y su tendencia? ¿En qué mes de
+                antigüedad se concentran las bajas? ¿Hay estacionalidad? ¿La
+                tasa varía por programa (Crossfit, Hyrox, Härt)?
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Tasa mensual de churn. Churn por cohorte de ingreso (de los que
+                entraron en X mes, ¿cuántos siguen activos a 1, 3, 6 meses?).
+                Churn por programa. LTV promedio. Momentos críticos de
+                deserción.
+              </p>
+            </div>
+          </div>
+          <div class="fields-row fields-2">
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Si el churn baja, el negocio crece aunque la captación sea
+                igual. Identificar momentos críticos para saber dónde
+                intervenir: si la mayoría se va en el mes 2, el onboarding
+                falla; si se van en el mes 6, se necesita un mecanismo de
+                renovación de motivación (retos, comunidad, cambio de programa).
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Reporte</p>
+              <p class="field-value">Mensual (pendiente)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clientes entran vs salen -->
+        <div class="entry-card new">
+          <div class="entry-header">
+            <span class="entry-name"
+              >Reporte: Clientes que Entran vs. Clientes que Se Van</span
+            >
+            <div class="tags">
+              <span class="tag new-tag">Nuevo ✦</span>
+              <span class="tag amber">Crecimiento neto</span>
+              <span class="tag gray">Mensual · Pendiente</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Medir el crecimiento neto real del negocio. La foto más simple y
+                poderosa: ¿estamos creciendo, estancados o encogiendo?
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué responde?</p>
+              <p class="field-value">
+                ¿Cuántos clientes nuevos ingresaron este mes? ¿Cuántos se dieron
+                de baja? ¿Cuál es el saldo neto? ¿Cómo se compara con los
+                últimos 3, 6, 12 meses?
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Tasa de crecimiento neto mensual. Tendencia de la base activa
+                total. Relación entre esfuerzo comercial (captación) y
+                retención.
+              </p>
+            </div>
+          </div>
+          <div class="fields-row fields-2">
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Es el dato que abre la reunión estratégica mensual. De aquí se
+                profundiza: si estamos perdiendo, ¿por qué? (reporte churn). Si
+                estamos ganando, ¿es sostenible? (calidad de leads, satisfacción
+                de nuevos atletas).
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Reporte</p>
+              <p class="field-value">Mensual (pendiente)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revenue -->
+        <div class="entry-card new">
+          <div class="entry-header">
+            <span class="entry-name"
+              >Revenue por Atleta y Revenue Mensual Recurrente (MRR)</span
+            >
+            <div class="tags">
+              <span class="tag new-tag">Nuevo ✦</span>
+              <span class="tag amber">Métricas financieras</span>
+              <span class="tag gray">Mensual · Pendiente</span>
+            </div>
+          </div>
+          <div class="fields-row fields-3">
+            <div class="field">
+              <p class="field-label">Objetivo</p>
+              <p class="field-value">
+                Conocer el ticket individual por atleta y cómo evoluciona el
+                ingreso recurrente total mes a mes.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">¿Qué responde?</p>
+              <p class="field-value">
+                ¿Cuánto factura cada atleta? ¿Cuál es el MRR total del mes?
+                ¿Cómo evoluciona mes a mes? ¿Qué planes o membresías concentran
+                el mayor ingreso?
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Información que arroja</p>
+              <p class="field-value">
+                Ticket promedio por atleta. Distribución de ingresos por plan o
+                membresía. MRR total y variación mensual. LTV estimado por tipo
+                de cliente. Concentración de ingresos: si pocos atletas
+                representan la mayoría del revenue, existe un riesgo de negocio.
+              </p>
+            </div>
+          </div>
+          <div class="fields-row fields-2">
+            <div class="field">
+              <p class="field-label">¿Qué hacer con la información?</p>
+              <p class="field-value">
+                Cruzar con el reporte de churn para entender el impacto
+                financiero real de cada baja, no solo el número de
+                cancelaciones. Identificar qué planes generan más revenue y
+                enfocar esfuerzos comerciales en esos perfiles. Detectar
+                oportunidades de upsell: atletas en planes bajos con potencial
+                de migrar a planes superiores. El MRR es la métrica financiera
+                clave para proyectar el crecimiento del negocio.
+              </p>
+            </div>
+            <div class="field">
+              <p class="field-label">Reporte</p>
+              <p class="field-value">Mensual (pendiente)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-left"
+        >Sistema de Inteligencia de Clientes &nbsp;·&nbsp; Versión Mayo
+        2026</span
+      >
+      <span class="footer-right">Confidencial — Uso interno</span>
+    </div>
+  </body>
+</html>
